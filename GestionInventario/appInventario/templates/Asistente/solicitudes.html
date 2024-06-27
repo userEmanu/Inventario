@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{%endblock %}
+{% block menu %}
+{% include "Asistente/menu.html" %}
+{%endblock %}
+{% block contenido %}
+
+<h3 class="text-center mt-3 fw-bold">SOLICITUDES</h3>
+<br />
+<ul class="nav nav-tabs w-75">
+    <li class="nav-item">
+        <a class="nav-link " aria-current="page" href="#">Aprobadas</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="#">Por Aprobar</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Rechazadas</a>
+    </li>
+</ul>
+
+<div class="container p-5 my-5  text-center" style="margin-bottom: 10rem;">
+    {% for solicitud in solicitud %}
+    <div class="card my-1" id ="cargarDataTable">
+        <div class="card-body" data-bs-toggle="collapse" data-bs-target="#card{{solicitud.id}}">
+            <h4 class="card-title">{{solicitud.detSolicitud.solProyecto}}</h4>
+            <p class="card-text">Ficha que solicita: {{solicitud.detSolicitud.solFicha.ficNombre}}</p>
+            <p class="card-text">Instructor que Solicita: {{solicitud.detSolicitud.solUsuario.first_name}} {{solicitud.detSolicitud.solUsuario.last_name}}</p>
+            <div class="collapse" id="card{{solicitud.id}}">
+                <div class="table-responsive">
+                    <table class="table table-secondary table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Elemento</th>
+                                <th scope="col">Cantidad Solicitada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="">
+                                <td scope="row">{{solicitud.detElemento.eleCodigo}}</td>
+                                <td>{{solicitud.detElemento.eleTipo}}</td>
+                                <td>{{solicitud.detElemento.eleEstado}}</td>
+                                <td>{{solicitud.detElemento.eleNombre}}</td>
+                                <td>{{solicitud.detCantidadRequerida}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{%endblock %}
+{% block piePagina %}
+{% include "piePagina.html" %}
+{%endblock %}

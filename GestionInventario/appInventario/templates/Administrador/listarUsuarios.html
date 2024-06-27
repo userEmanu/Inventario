@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{%endblock %}
+{% block menu %}
+    {% include "Administrador/menu.html" %}
+{%endblock %}
+{% block contenido %}
+<br>
+<h3 class="text-center fw-bold">GESTIONAR USUARIOS</h3>
+
+<div class="w-75 table-responsive" style="margin: 0 auto; margin-bottom: 5rem;">
+    <a href="/vistauser/"><button class="btn btn-success">Agregar</button></a>
+    <br>
+    <br>
+    <table id="tblPersonas" class="table table-bordered table-hover">
+        <thead>
+            <tr class="text-center verdeSena text-black">
+                <th>Nombre Completo</th>
+                <th>Correo Electrónico</th>
+                <th>Tipo</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{usuario.first_name}} {{usuario.last_name}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.userTipo}}</td>
+                    <td><img src="../media/{{usuario.userFoto}}" width="50" height="50"></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- The Modal -->
+
+
+<script>
+    cargarDataTable($("#tblPersonas"),"Usuarios Registrados",3)
+</script>
+{%endblock %}
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{%endblock %}

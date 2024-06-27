@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{%endblock %}
+{% block menu %}
+    {% include "Asistente/menu.html" %}
+{%endblock %}
+{% block contenido %}
+<br>
+<h3 class="text-center fw-bold">GESTIONAR ELEMENTOS MATERIALES</h3>
+
+<div class="w-75 table-responsive" style="margin: 0 auto; margin-bottom: 5rem;">
+    <br>
+    <br>
+    <table id="tblMateriales" class="table table-bordered table-hover">
+        <thead>
+            <tr class="text-center text-bold">
+                <th>Codigo Propio</th>
+                <th>Nombre</th>
+                <th>Referencia</th>
+                <th>Marca</th>
+                <th>Estado</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for material in materiales %}
+                <tr>
+                    <td class="text-bold">{{material.detMaterial.matElemento.eleCodigo}}</td>
+                    <td class="text-bold">{{material.detMaterial.matElemento.eleNombre}}</td>
+                    <td class="text-bold">{{material.detMaterial.matReferencia}}</td>
+                    <td class="text-bold">{{material.detMaterial.matMarca}}</td>
+                    <td class="text-bold">{{material.devEstado}}</td>
+                    <td class="text-bold">{{material.detCantidad}}</td>
+                    <td class="text-bold">{{material.detPrecioUnitario}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{%endblock %}
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{%endblock %}

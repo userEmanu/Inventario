@@ -1,0 +1,76 @@
+{% extends "index.html" %} 
+
+{% block encabezado %} 
+    {% include "encabezado.html" %}
+{%endblock %}
+
+{% block menu %} 
+    {% include "Administrador/menu.html" %}
+{% endblock %}
+
+{% block contenido %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<div class="container p-5 my-5  text-center" style="margin: 0 auto">
+    <form action="/registroUsuario/" method="post" enctype="multipart/form-data" class="was-validated">
+        {% csrf_token %}
+        <div>
+            <h3 class="text-center ">Registrar Usuario</h3>
+        </div>
+        <div class="form-floating mb-2">
+            <div class="input-group mb-3">
+                <span class="input-group-text"> Persona</span>
+                <input type="text" class="form-control" name="txtNombre" id="txtNombre" placeholder="Nombre" required>
+                <input type="text" class="form-control" name="txtApellido" id="txtApellido" placeholder="Apellido" required>
+            </div>
+        </div>
+        <div class="form-floating mb-2">
+            <div class="input-group">
+                <span class="input-group-text">@</span>
+                <input type="email" name="txtCorreo" id="txtCorreo" class="form-control" placeholder="Correo Electronico" required>
+            </div>
+        </div>
+        <div class="form-floating mb-2">
+            <select name="cbTipo" id="cbTipo" class="form-control" required>
+                <option value="">Seleccionar</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Aprendiz">Aprendiz</option>
+                <option value="Administrativo">Administrativo</option>
+            </select>
+            <label for="cbTipo" class="form-label">Seleccionar Tipo</label>
+        </div>
+        <div class="form-floating mb-2">
+            <select name="cbRol" id="cbRol" class="form-select" required>
+                <option value="">Seleccione</option>
+                    {% for rol in roles %}
+                        <option value="{{rol.id}}">{{rol.name}}</option>
+                    {% endfor %}
+            </select>
+            <label for="cbRol" class="form-label">Rol en el Sistema</label>              
+        </div>
+        <div class="form-floating mb-2">
+            <input type="file" name="fileFoto" id="fileFoto" class="form-control" required accept=".jpg"  placeholder="Cargar foto">
+            <label for="fileFoto" class="form-label">Cargar foto</label>
+        </div>
+        <div class="text-center">
+            <img id="imagenProducto" src="" alt="" width="200" height="200" style= " border-radius: 72% 28% 62% 38% / 30% 48% 52% 70% ;">
+        </div>
+        <div class="text-center">
+            <div class=" g-recaptcha" data-sitekey="6Lfr8folAAAAACFLpb2Pwb8uxukd353ri-Ssd4vH"></div>
+        </div>
+        <div class="mt-5">
+            <button class="btn mb-2 fw-white btn-success" >AGREGAR</button>
+            <button class="btn mb-2 fw-white btn-danger" >CANCELAR</button>
+        </div>
+    </form>
+    <div class="text-center">
+        {% if mensaje %}
+        <script>
+            Swal.fire("Inventario ADSO",'{{mensaje}}','error')
+        </script>
+        {% endif %}        
+    </div> 
+</div>
+{% endblock %}
+{% block piedepagina %} 
+{% include "piePagina.html" %}
+{% endblock %}

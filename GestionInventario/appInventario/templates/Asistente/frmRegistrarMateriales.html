@@ -1,0 +1,175 @@
+{% extends "index.html" %}
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{%endblock %}
+{% block menu %}
+    {% include "Asistente/menu.html" %}
+{%endblock %}
+{% block contenido %}
+    <br>
+    <div class="d-flex justify-content-center align-items-center" style="margin-bottom: 7rem;">
+        <form id="frmRegistrarUsuario" action="/registrarMaterial/" method="post" enctype="multipart/form-data" class="needs-validation w-75" novalidate>                   
+            {% csrf_token%}
+            <h3 class="text-center fw-bold">REGISTRAR ELEMENTOS MATERIALES</h3>
+            <br>
+            <div class="form-group row">
+                <div class="mb-3 col-lg-4">
+                    <label for="txtNombre" class="fw-bold">Nombre del elemento:</label>
+                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" placeholder="Nombre del elemento" required
+                    value=""> 
+                    <div class="invalid-feedback">Por favor ingrese el nombre del elemento</div>
+                </div>
+                <div class="mb-3 col-lg-4">
+                    <label for="cbEstado" class="fw-bold">Estado del elemento:</label>              
+                    <select name="cbEstado" id="cbEstado" class="form-select" required>
+                        <option value="">Seleccione</option>
+                            {% for estado in estadoElemento %}
+                                <option value="{{estado.0}}">{{estado.1}}</option>
+                            {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Por favor eliga un estado</div>
+                </div>
+                <div class="mb-3 col-lg-4">  
+                    <label for="txtMarca" class="fw-bold">Marca: (*opcional)</label>
+                    <input type="text" name="txtMarca" class="form-control" id="txtMarca" placeholder="Marca del elemento"
+                    value=""> 
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="mb-3 col-lg-12">
+                    <label for="txtReferencia" class="fw-bold">Referencia:</label>
+                    <textarea
+                    class="form-control"
+                    id="txtReferencia"
+                    name="txtReferencia"
+                    rows="3"
+                    style="resize: none"
+                    ></textarea>
+                </div>
+            </div>
+            <h4 class="text-center text-black-50 my-2">Ubicación Fisica</h4>
+            <div class="form-group row">                
+                <div class="mt-3 col-lg-6">
+                    <label for="txtDesposito" class="fw-bold"
+                    >Deposito:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="txtDesposito"
+                    name="txtDesposito"
+                    placeholder="Numero del deposito"
+                    required
+                  />
+                  <div class="invalid-feedback">Por favor ingrese el numero del deposito.</div>                  
+                </div>
+                <div class="mt-3 col-lg-6">
+                    <label for="txtEstante" class="fw-bold"
+                    >Estante: (*opcional)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="txtEstante"
+                    name="txtEstante"
+                    placeholder="Numero del estante"
+                    value="0"
+                    min="0"
+                  />                  
+                </div>
+            </div>
+            <div class="form-group row"> 
+                <div class="mt-3 col-lg-6">
+                    <label for="txtEntrepaño" class="fw-bold"
+                    >Entrepaño: (*opcional)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="txtEntrepaño"
+                    name="txtEntrepaño"
+                    placeholder="Numero del Entrepaño"
+                    value="0"
+                    min="0"
+                  />                 
+                </div>
+                <div class="mt-3 col-lg-6">
+                    <label for="txtLoker" class="fw-bold"
+                    >Loker: (*opcional)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="txtLoker"
+                    name="txtLoker"
+                    placeholder="Numero del Loker"
+                    value="0"
+                    min="0"
+                  />                  
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-secondary">Registrar</button>
+                <a href="/vistaGestionarMateriales/"><button type="button" class="btn btn-danger mx-2">Cancelar</button></a>
+            </div>
+        </form>
+    </div>
+ 
+{% if mensaje %}  
+    {% if estado %}  
+        <script>
+            Swal.fire({
+                title: 'Registro Elementos Materiales',
+                text: '{{mensaje}}',
+                icon: 'success',               
+                confirmButtonColor: '#3085d6',             
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href="/vistaRegistrarMateriales/"
+                }
+            });
+        </script>
+    {% else %}
+        <script>
+            Swal.fire({
+                title: 'Registro Elementos Materiales',
+                text: '{{mensaje}}',
+                icon: 'warning',               
+                confirmButtonColor: '#3085d6',             
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   
+                }
+            })
+        </script>
+    {% endif %}
+{% endif %}
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+          "use strict";
+    
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll(".needs-validation");
+    
+          // Loop over them and prevent submission
+          Array.from(forms).forEach((form) => {
+            form.addEventListener(
+              "submit",
+              (event) => {
+                if (!form.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+    
+                form.classList.add("was-validated");
+              },
+              false
+            );
+          });
+        })();
+    </script>
+{%endblock %}
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{%endblock %}

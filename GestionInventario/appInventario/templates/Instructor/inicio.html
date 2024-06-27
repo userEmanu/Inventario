@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{% endblock %}
+
+{% block menu %}
+    {% include "Instructor/menu.html" %}
+{% endblock %}
+
+{% block contenido %}
+    <div>{{mensaje | safe}}</div>
+    <br>
+    <h3 class="text-center fw-bolds text-center">Bienvenidos Módulo Instructor</h3>
+    <p>Las tareas que puede realizar el usuario con rol Instructor es la siguiente: </p>
+    <ul>
+        <li>Gestionar Servicios</li>
+        <li>Gestionar Reportes</li>
+    </ul>
+{% endblock %}
+
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{% endblock %}

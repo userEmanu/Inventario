@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gestion Inventario</title>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static '../static/css/inicio.css' %}">
+	<script  src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+</head>
+<body>
+	<img class="wave" src="{% static '../static/img/wave.png' %}">
+	<div class="container">
+		<div class="img">
+			<img src="{% static '../static/img/bg.svg' %}">
+		</div>
+		<div class="login-content">
+			<form action="/login/" method="post"  >
+				 {% csrf_token %}
+				<img src="{% static '../static/img/avatar.svg' %}">
+				<h2 class="title">Bienvenido, a Gestion De Inventario</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Usuario</h5>
+           		   		<input type="text" class="input" id="txtUser" name="txtUser">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Contraseña</h5>
+           		    	<input type="password" class="input" id="txtPassword" name="txtPassword">
+            	   </div>
+            	</div>
+				<div class="g-recaptcha" data-sitekey="6Lfr8folAAAAACFLpb2Pwb8uxukd353ri-Ssd4vH"></div>
+            	<input type="submit" class="btn" value="Login">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static '../static/js/inicio.js' %}"></script>
+	<div class="text-center">
+        <script>
+			{% if mensaje %}
+			Swal.fire({
+				title: 'Sistema Inventario',
+				text: '{{mensaje}}',
+				icon: 'info',               
+				confirmButtonColor: '#3085d6',             
+				confirmButtonText: 'Aceptar'
+			}).then((result) => {
+				if (result.isConfirmed) {           
+					location.href="/Sesion/"
+				}
+			});
+			{% endif %}
+		</script>
+    </div> 
+</body>
+</html>
